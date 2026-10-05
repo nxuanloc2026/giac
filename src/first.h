@@ -158,7 +158,9 @@ extern "C" void glcontext(int);
 #define GIAC_NO_OPTIMIZATIONS
 #endif
 
-#if defined(BUILDING_NODE_EXTENSION) && defined(_WIN64)
+// Windows uses LLP64: long is 32-bit while pointers are 64-bit. Giac's
+// non-DOUBLEVAL alias_gen stores a long, so it cannot alias a 16-byte gen.
+#if defined(_WIN64)
 #define DOUBLEVAL
 #endif
 
