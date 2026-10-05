@@ -938,11 +938,11 @@ namespace giac {
 #define define_tab2_alias_gen(name,retype,resubtype,reptr,imtype,imsubtype,imptr) alias_gen name[]={{(ulonglong(reptr) << 16) | (resubtype << 8) | retype },{(ulonglong(imptr) << 16) | (imsubtype << 8) | imtype }};
 #else // SMARTPTR64
 #ifdef DOUBLEVAL
-#define define_alias_gen(name,type,subtype,ptr) alias_gen name={type,subtype,0,ulonglong(ptr)};
-#define define_alias_ref_symbolic(name,sommet,type,subtype,ptr) alias_ref_symbolic name={-1,(unary_function_eval *)sommet,type,subtype,0,ulonglong(ptr)};
-#define define_alias_ref_fraction(name,numtype,numsubtype,numptr,dentype,densubtype,denptr) alias_ref_fraction name={-1,{numtype,numsubtype,0,ulonglong(numptr)},{dentype,densubtype,0,ulonglong(denptr)}};
-#define define_alias_ref_complex(name,retype,resubtype,reptr,imtype,imsubtype,imptr) alias_ref_complex name={-1,0,{retype,resubtype,0,ulonglong(reptr)},{imtype,imsubtype,0,ulonglong(imptr)}};
-#define define_tab2_alias_gen(name,retype,resubtype,reptr,imtype,imsubtype,imptr) alias_gen name[]={{retype,resubtype,0,ulonglong(reptr)},{imtype,imsubtype,0,ulonglong(imptr)}};
+#define define_alias_gen(name,type,subtype,ptr) alias_gen name={type,subtype,0,longlong(ptr)};
+#define define_alias_ref_symbolic(name,sommet,type,subtype,ptr) alias_ref_symbolic name={-1,(unary_function_eval *)sommet,type,subtype,0,longlong(ptr)};
+#define define_alias_ref_fraction(name,numtype,numsubtype,numptr,dentype,densubtype,denptr) alias_ref_fraction name={-1,{numtype,numsubtype,0,longlong(numptr)},{dentype,densubtype,0,longlong(denptr)}};
+#define define_alias_ref_complex(name,retype,resubtype,reptr,imtype,imsubtype,imptr) alias_ref_complex name={-1,0,{retype,resubtype,0,longlong(reptr)},{imtype,imsubtype,0,longlong(imptr)}};
+#define define_tab2_alias_gen(name,retype,resubtype,reptr,imtype,imsubtype,imptr) alias_gen name[]={{retype,resubtype,0,longlong(reptr)},{imtype,imsubtype,0,longlong(imptr)}};
 #else // DOUBLEVAL
 #define define_alias_gen(name,type,subtype,ptr) alias_gen name={type,subtype,0,long(ptr)};
 #define define_alias_ref_symbolic(name,sommet,type,subtype,ptr) alias_ref_symbolic name={-1,(unary_function_eval *)sommet,type,subtype,0,long(ptr)};
