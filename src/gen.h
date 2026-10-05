@@ -443,7 +443,7 @@ namespace giac {
   };
   typedef std::map<gen,gen,comparegen> gen_map;
 #else
-  typedef std::map<gen,gen,const std::pointer_to_binary_function < const gen &, const gen &, bool> > gen_map;
+  typedef std::map<gen,gen,const giac_legacy::pointer_to_binary_function < const gen &, const gen &, bool> > gen_map;
 #endif
   struct ref_gen_map;
 
@@ -765,7 +765,7 @@ namespace giac {
     
 #else // SMARTPTR64
     gen & operator = (const gen & a){
-      register unsigned t=(type << _DECALAGE) | a.type;
+      unsigned t=(type << _DECALAGE) | a.type;
       if (!t){
 	subtype=a.subtype;
 	val=a.val;
@@ -902,7 +902,7 @@ namespace giac {
 #if 1 // def NSPIRE
     ref_gen_map(): ref_count(1),m() {}
 #else
-    ref_gen_map(const std::pointer_to_binary_function < const gen &, const gen &, bool> & p): ref_count(1),m(p) {}
+    ref_gen_map(const giac_legacy::pointer_to_binary_function < const gen &, const gen &, bool> & p): ref_count(1),m(p) {}
 #endif
     ref_gen_map(const gen_map & M):ref_count(1),m(M) {}
   };

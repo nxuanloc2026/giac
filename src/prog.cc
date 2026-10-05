@@ -18,6 +18,11 @@
  *  along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 using namespace std;
+#ifdef VISUALC
+#include <direct.h>
+#define getcwd _getcwd
+#define chdir _chdir
+#endif
 #ifdef __MINGW_H
 #define HAVE_NO_PWD_H
 #endif

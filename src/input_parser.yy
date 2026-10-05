@@ -30,6 +30,7 @@
  */
 %pure-parser
 %parse-param {void * scanner}
+%lex-param {void * scanner}
 %{
 #include "giacPCH.h"
 #ifdef HAVE_CONFIG_H

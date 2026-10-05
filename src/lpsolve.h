@@ -20,7 +20,9 @@
 #ifndef __LPSOLVE_H
 #define __LPSOLVE_H
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include "gen.h"
 #include "unary.h"
 #include <stack>

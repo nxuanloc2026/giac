@@ -21,6 +21,23 @@
 #ifndef _GIAC_FIRST_H_
 #define _GIAC_FIRST_H_
 
+// std::ptr_fun and std::pointer_to_binary_function were removed in C++17.
+// Keep Giac's comparator representation without depending on removed STL names.
+namespace giac_legacy {
+template <class A, class B, class R>
+struct pointer_to_binary_function {
+  using function_type = R (*)(A, B);
+  function_type function;
+  pointer_to_binary_function(function_type f = nullptr) : function(f) {}
+  R operator()(A a, B b) const { return function(a, b); }
+};
+
+template <class A, class B, class R>
+pointer_to_binary_function<A, B, R> ptr_fun(R (*f)(A, B)) {
+  return pointer_to_binary_function<A, B, R>(f);
+}
+} // namespace giac_legacy
+
 #ifdef NUMWORKS
 #define KHICAS 1
 #endif

@@ -10,7 +10,7 @@
 
 namespace std {
 
-  // inline void swapptr(void * & a,void * & b){ register void * c=a; a=b; b=c; }
+  // inline void swapptr(void * & a,void * & b){ void * c=a; a=b; b=c; }
   inline unsigned _abs(int i){ return i>=0?(i==immvector_max?0:i):-i;}
   inline int nextpow2(int n){
     if (n>=16){

@@ -1,7 +1,9 @@
 // -*- mode:C++ ; compile-command: "g++ -I.. -g -c Equation.cc" -*-
 #ifndef _KDISPLAY_H
 #define _KDISPLAY_H
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
 #include "giacPCH.h"
 #ifdef KHICAS
 #include "misc.h"

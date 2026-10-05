@@ -7337,39 +7337,39 @@ namespace giac {
     switch (order.val){
     case _PLEX_ORDER: 
       p.is_strictly_greater=i_lex_is_strictly_greater;
-      p.m_is_strictly_greater=std::ptr_fun(m_lex_is_strictly_greater<gen>);
+      p.m_is_strictly_greater=giac_legacy::ptr_fun(m_lex_is_strictly_greater<gen>);
       break;
     case _REVLEX_ORDER: 
       p.is_strictly_greater=i_total_revlex_is_strictly_greater;
-      p.m_is_strictly_greater=std::ptr_fun(m_total_revlex_is_strictly_greater<gen>);
+      p.m_is_strictly_greater=giac_legacy::ptr_fun(m_total_revlex_is_strictly_greater<gen>);
       break;
     case _TDEG_ORDER:
       p.is_strictly_greater=i_total_lex_is_strictly_greater;
-      p.m_is_strictly_greater=std::ptr_fun(m_total_lex_is_strictly_greater<gen>);
+      p.m_is_strictly_greater=giac_legacy::ptr_fun(m_total_lex_is_strictly_greater<gen>);
       break;
     case _3VAR_ORDER:
       p.is_strictly_greater=i_3var_is_strictly_greater;
-      p.m_is_strictly_greater=std::ptr_fun(m_3var_is_strictly_greater<gen>);
+      p.m_is_strictly_greater=giac_legacy::ptr_fun(m_3var_is_strictly_greater<gen>);
       break;      
     case _7VAR_ORDER:
       p.is_strictly_greater=i_7var_is_strictly_greater;
-      p.m_is_strictly_greater=std::ptr_fun(m_7var_is_strictly_greater<gen>);
+      p.m_is_strictly_greater=giac_legacy::ptr_fun(m_7var_is_strictly_greater<gen>);
       break;      
     case _11VAR_ORDER:
       p.is_strictly_greater=i_11var_is_strictly_greater;
-      p.m_is_strictly_greater=std::ptr_fun(m_11var_is_strictly_greater<gen>);
+      p.m_is_strictly_greater=giac_legacy::ptr_fun(m_11var_is_strictly_greater<gen>);
       break;      
     case _16VAR_ORDER:
       p.is_strictly_greater=i_16var_is_strictly_greater;
-      p.m_is_strictly_greater=std::ptr_fun(m_16var_is_strictly_greater<gen>);
+      p.m_is_strictly_greater=giac_legacy::ptr_fun(m_16var_is_strictly_greater<gen>);
       break;      
     case _32VAR_ORDER:
       p.is_strictly_greater=i_32var_is_strictly_greater;
-      p.m_is_strictly_greater=std::ptr_fun(m_32var_is_strictly_greater<gen>);
+      p.m_is_strictly_greater=giac_legacy::ptr_fun(m_32var_is_strictly_greater<gen>);
       break;      
     case _64VAR_ORDER:
       p.is_strictly_greater=i_64var_is_strictly_greater;
-      p.m_is_strictly_greater=std::ptr_fun(m_64var_is_strictly_greater<gen>);
+      p.m_is_strictly_greater=giac_legacy::ptr_fun(m_64var_is_strictly_greater<gen>);
       break;      
     }
     p.tsort();

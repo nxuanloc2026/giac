@@ -1,5 +1,8 @@
 /* -*- compile-command: "g++-3.4 -I.. -g -c global.cc  -DHAVE_CONFIG_H -DIN_GIAC" -*- */
 
+#ifdef VISUALC
+#include <Windows.h>
+#endif
 #include "giacPCH.h"
 
 /*  
@@ -92,10 +95,6 @@ using namespace std;
 #ifdef HAVE_LIBFLTK
 #include <FL/fl_ask.H>
 #endif
-
-#if defined VISUALC && !defined BESTA_OS && !defined RTOS_THREADX && !defined FREERTOS 
-#include <Windows.h>
-#endif 
 
 #ifdef BESTA_OS
 #include <stdlib.h>

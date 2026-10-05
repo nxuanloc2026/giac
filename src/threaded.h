@@ -1300,7 +1300,7 @@ namespace giac {
     unsigned childindex=2,holeindex=0;
     while (childindex<size){
       // find largest child until end of tab
-      register T * ptr=tab+childindex;
+      T * ptr=tab+childindex;
       if (*ptr<*(ptr-1)){
 	--childindex;
 	--ptr;
@@ -2724,7 +2724,7 @@ namespace giac {
       // find maincoeff of b
       std::vector< T_unsigned<T,U> > lcoeffb;
       for (cit=b.begin(),citend=b.end();cit!=citend;++cit){
-	register U u=cit->u;
+	U u=cit->u;
 	if (rstop>u)
 	  break;
 	lcoeffb.push_back(T_unsigned<T,U>(cit->g,u-rstop));
@@ -2793,7 +2793,7 @@ namespace giac {
 	  if (!is_zero(reduce)){
 	    for (it2=quo.begin(),it2end=quo.end();it2!=it2end;++it2){
 	      u=u1+it2->u;
-	      register int deg = int(u >> mainvar); // deg=deg1+it2->u/mainvar;
+	      int deg = int(u >> mainvar); // deg=deg1+it2->u/mainvar;
 	      if (deg<rdeg){
 		type_operator_plus_times_reduce(g1,it2->g,rem[u],reduce); 
 	      }
@@ -2802,7 +2802,7 @@ namespace giac {
 	  else {
 	    for (it2=quo.begin(),it2end=quo.end();it2!=it2end;++it2){
 	      u=u1+it2->u;
-	      register int deg=int(u >> mainvar);
+	      int deg=int(u >> mainvar);
 	      if (deg<rdeg){
 		type_operator_plus_times(g1,it2->g,rem[u]);	      
 	      }
@@ -3238,7 +3238,7 @@ namespace giac {
     // find maincoeff of b
     std::vector< T_unsigned<T,U> > lcoeffb;
     for (cit=b.begin(),citend=b.end();cit!=citend;++cit){
-      register U u=cit->u;
+      U u=cit->u;
       if (rstop>u)
 	break;
       lcoeffb.push_back(T_unsigned<T,U>(cit->g,u-rstop));
@@ -3333,7 +3333,7 @@ namespace giac {
 	if (!is_zero(reduce)){
 	  for (it2=quo.begin(),it2end=quo.end();it2!=it2end;++it2){
 	    u=u1+it2->u;
-	    register int deg = int(u >> mainvar); // deg=deg1+it2->u/mainvar;
+	    int deg = int(u >> mainvar); // deg=deg1+it2->u/mainvar;
 	    if (deg<rdeg){
 	      hashptr = &produit[deg];
 	      prod_it=hashptr->find(u);
@@ -3352,7 +3352,7 @@ namespace giac {
 	else {
 	  for (it2=quo.begin(),it2end=quo.end();it2!=it2end;++it2){
 	    u=u1+it2->u;
-	    register int deg=int(u >> mainvar);
+	    int deg=int(u >> mainvar);
 	    if (deg<rdeg){
 	      hashptr = &produit[deg];
 	      prod_it=hashptr->find(u);

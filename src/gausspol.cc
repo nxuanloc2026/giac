@@ -855,7 +855,7 @@ namespace giac {
 		 std::vector< monomial<gen> >::const_iterator & itb_end,
 		 std::vector< monomial<gen> > & new_coord,
 		 bool (* is_strictly_greater)( const index_m &, const index_m &),
-		 const std::pointer_to_binary_function < const monomial<gen> &, const monomial<gen> &, bool> m_is_strictly_greater
+		 const giac_legacy::pointer_to_binary_function < const monomial<gen> &, const monomial<gen> &, bool> m_is_strictly_greater
 	     ) {
     if (ita==ita_end || itb==itb_end){
       new_coord.clear();

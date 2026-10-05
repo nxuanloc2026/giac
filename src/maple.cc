@@ -24,6 +24,9 @@ using namespace std;
 #include <cmath>
 #include <cstdlib>
 #include <stdio.h>
+#if defined(VISUALC) || defined(__MINGW_H)
+#include <sys/timeb.h>
+#endif
 
 #if !defined GIAC_HAS_STO_38 && !defined NSPIRE && !defined FXCG 
 #include <fstream>
