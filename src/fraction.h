@@ -35,9 +35,9 @@ template <class T> class Tfraction {
 public:
   T num;
   T den;
-  Tfraction<T> (const T & n,const T & d) : num(n),den(d) {};
-  Tfraction<T> (const T & n) : num(n),den(T(1)) {}; // does not work properly??
-  Tfraction<T> (const Tfraction<T> & f) : num(f.num), den(f.den) {};
+  Tfraction(const T & n,const T & d) : num(n),den(d) {};
+  Tfraction(const T & n) : num(n),den(T(1)) {}; // does not work properly??
+  Tfraction(const Tfraction<T> & f) : num(f.num), den(f.den) {};
   Tfraction<T> normal() const;
   void dbgprint();
 };
