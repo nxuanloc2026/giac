@@ -24,6 +24,7 @@
 #include <algorithm>
 #include <cmath>
 #include <map>
+#include <memory>
 #include <string>
 #include <cassert>
 #ifdef USTL
@@ -421,11 +422,21 @@ namespace giac {
     }
   */
 
+  // Compare element addresses instead of iterators: MSVC's checked iterators
+  // reject comparisons between distinct vectors, and that comparison is UB.
+  template <class T>
+  bool aliases_first(const std::vector< monomial<T> > & destination,
+                     typename std::vector< monomial<T> >::const_iterator first,
+                     typename std::vector< monomial<T> >::const_iterator last) {
+    return !destination.empty() && first != last &&
+           std::addressof(destination.front()) == std::addressof(*first);
+  }
+
   template <class T>
   void Mul ( typename std::vector< monomial<T> >::const_iterator & a,
 	     typename std::vector< monomial<T> >::const_iterator & a_end,
 	     const T & fact, std::vector< monomial<T> > & new_coord){
-    if (new_coord.begin()==a){
+    if (aliases_first(new_coord,a,a_end)){
       if (is_one(fact))
 	return;
       typename std::vector< monomial<T> >::iterator b=new_coord.begin(),b_end=new_coord.end();
@@ -476,7 +487,7 @@ namespace giac {
   void Div ( typename std::vector< monomial<T> >::const_iterator & a,
 	     typename std::vector< monomial<T> >::const_iterator & a_end,
 	     const T & fact, std::vector< monomial<T> > & new_coord){
-    if (new_coord.begin()==a){
+    if (aliases_first(new_coord,a,a_end)){
       if (is_one(fact))
 	return;
       typename std::vector< monomial<T> >::iterator b=new_coord.begin(),b_end=new_coord.end();
@@ -512,7 +523,7 @@ namespace giac {
 	     typename std::vector< monomial<T> >::const_iterator & b_end,
 	     std::vector< monomial<T> > & new_coord,
 	     bool (* is_strictly_greater)( const index_m &, const index_m &)) {
-    if ( (a!=a_end && new_coord.begin()==a) || (b!=b_end && new_coord.begin()==b)){
+    if (aliases_first(new_coord,a,a_end) || aliases_first(new_coord,b,b_end)){
       std::vector< monomial<T> > tmp;
       Add(a,a_end,b,b_end,tmp,is_strictly_greater);
       std::swap(new_coord,tmp);
@@ -584,7 +595,7 @@ namespace giac {
 	     typename std::vector< monomial<T> >::const_iterator & b_end,
 	     std::vector< monomial<T> > & new_coord,
 	     bool (* is_strictly_greater)( const index_m &, const index_m &)) {
-    if ((a!=a_end && new_coord.begin()==a) || (b!=b_end && new_coord.begin()==b)){
+    if (aliases_first(new_coord,a,a_end) || aliases_first(new_coord,b,b_end)){
       std::vector< monomial<T> > tmp;
       Sub(a,a_end,b,b_end,tmp,is_strictly_greater);
       std::swap(new_coord,tmp);
