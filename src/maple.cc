@@ -24,6 +24,11 @@ using namespace std;
 #include <cmath>
 #include <cstdlib>
 #include <stdio.h>
+#ifndef VISUALC
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#endif
 #if defined(VISUALC) || defined(__MINGW_H)
 #include <sys/timeb.h>
 #endif
