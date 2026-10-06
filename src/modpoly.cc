@@ -466,12 +466,12 @@ namespace giac {
       n=m;
       m=saven;
     }
-    if (m && other_it==new_coord.begin()){
+    if (m && !new_coord.empty() && &*other_it==&new_coord.front()){
       modpoly temp(new_coord);
       Addmodpoly(th_it,th_itend,temp.begin(),temp.end(),env,new_coord);
       return;
     }
-    if (n && (th_it==new_coord.begin()) ){
+    if (n && !new_coord.empty() && &*th_it==&new_coord.front()){
       modpoly::iterator th=new_coord.begin()+n-m;
       bool trim=(n==m);
       // in-place addition
@@ -577,7 +577,7 @@ namespace giac {
       return;
     }
     int m=int(other_itend-other_it);
-    if (th_it==new_coord.begin()){
+    if (!new_coord.empty() && &*th_it==&new_coord.front()){
       if (n<m){
 	modpoly temp(new_coord);
 	Submodpoly(temp.begin(),temp.end(),other_it,other_itend,env,new_coord);
@@ -603,7 +603,7 @@ namespace giac {
       }
       return;
     }
-    if (m && (other_it==new_coord.begin()) ){
+    if (m && !new_coord.empty() && &*other_it==&new_coord.front()){
       bool inplace=(m>n);
       if (n==m){ // look if highest coeff vanishes
 	if (env && env->moduloon)
@@ -989,7 +989,7 @@ namespace giac {
       newdeg=maxdeg;
     }
     new_coord.resize(newdeg+1);
-    modpoly::const_iterator ita_begin=ita0-1,ita=ita0,itb=itb0;
+    modpoly::const_iterator ita_begin=ita0,ita=ita0,itb=itb0;
     gen * target=&new_coord.front();
     if (taille<128) 
       taille=0; 
@@ -1003,8 +1003,10 @@ namespace giac {
 	--skip;
 	continue;
       }
-      modpoly::const_iterator ita_cur=ita,itb_cur=itb;
-      for (;itb_cur!=itb_end && ita_cur!=ita_begin;--ita_cur,++itb_cur) {
+
+      modpoly::const_iterator ita_cur=ita+1,itb_cur=itb;
+      for (;itb_cur!=itb_end && ita_cur!=ita_begin;++itb_cur) {
+	--ita_cur;
 	add_mul(&res->z,prod,*ita_cur,*itb_cur); // res = res + (*ita_cur) * (*itb_cur);
       }
       int oldtaille=mpz_sizeinbase(res->z,2);
@@ -1028,8 +1030,9 @@ namespace giac {
 	--skip;
 	continue;
       }
-      modpoly::const_iterator ita_cur=ita,itb_cur=itb;
-      for (;itb_cur!=itb_end && ita_cur!=ita_begin;--ita_cur,++itb_cur) {
+      modpoly::const_iterator ita_cur=ita+1,itb_cur=itb;
+      for (;itb_cur!=itb_end && ita_cur!=ita_begin;++itb_cur) {
+	--ita_cur;
 	add_mul(&res->z,prod,*ita_cur,*itb_cur); // res=res+((*ita_cur)) * ((*itb_cur));
       }
       int oldtaille=mpz_sizeinbase(res->z,2);
@@ -2855,8 +2858,8 @@ namespace giac {
     iterateur tmpend=vtmp.end()-1;
     iterateur tmpptr=tmpend; // tmpend points to the highest degree coeff of A
     */
-    for (;tmpptr!=tmp-1;--tmpptr,++remit)
-      *tmpptr=*remit;
+    for (int i=a;i>=0;--i,++remit)
+      tmp[i]=*remit;
     modpoly::const_iterator B_beg=other.begin(),B_end=other.end();
     mpz_t prod;
     mpz_init(prod);
@@ -6795,10 +6798,10 @@ namespace giac {
 	env->complexe=true;
 	a=(g1+g2)-cst_i*ig*(g1-g2);
 	mulmodpoly(a,invmod(2,env->modulo),env,a);
-	modpoly & q=g1; modpoly & r=g2;
-	DivRem(p,a,env,q,r);
+	modpoly & quotient=g1; modpoly & r=g2;
+	DivRem(p,a,env,quotient,r);
 	if (r.empty()){
-	  DivRem(q,a,env,q,r);
+	  DivRem(q,a,env,quotient,r);
 	  if (r.empty())
 	    return true;
 	}

@@ -158,21 +158,16 @@ namespace giac {
 #endif
     gen * resptr=res;
     modpoly::const_iterator itend=r.end(),itbeg=r.begin();
-    --itend;
-    --itbeg;
     if ( env->moduloon && is_zero(env->coeff) && env->pn.type==_INT_ && env->pn.val<smallint ){
       for (int i=0;i<maxdeg;++i,++resptr){ // compute coeff of x^i
 	int res=0; // init coeff
 	itvptr=itv; // itvptr points to itv[0], after the coeff of x^i in v[0]
 	vit=v.begin();
-	for (modpoly::const_iterator it=itend;it!=itbeg;--it,++itvptr,++vit){
-	  if ( * (int *) &(*itvptr)!=0){
-	    if (*itvptr!=vit->begin()){
+	for (modpoly::const_iterator it=itend;it!=itbeg;++itvptr,++vit){
+	  --it;
+	  if (*itvptr!=vit->begin()){
 	      --(*itvptr); // decreases iterator to increase power of x to x^i
 	      res += (it->val)*((*itvptr)->val);
-	    }
-	    else
-	      * (int *) &(*itvptr)=0; // mark that v[] has no coeff of order >=i
 	  }
 	}
 	*resptr=gen(res);
@@ -188,14 +183,11 @@ namespace giac {
 	// therefore the r iterator it starts at itend (for r[0]) and decreases
 	// itvptr starts at &itv[] and increases
 	// vit starts at v.begin() and increases
-	for (modpoly::const_iterator it=itend;it!=itbeg;--it,++itvptr,++vit){
-	  if ( * (int *)&(*itvptr)!=0){
-	    if (*itvptr!=vit->begin()){
+	for (modpoly::const_iterator it=itend;it!=itbeg;++itvptr,++vit){
+	  --it;
+	  if (*itvptr!=vit->begin()){
 	      --(*itvptr); // decreases iterator to increase power of x to x^i
 	      *resptr=*resptr+(*it)*(*(*itvptr));
-	    }
-	    else
-	      * (int *) &(*itvptr)=0; // mark that v[] has no coeff of order >=i
 	  }
 	}
       }

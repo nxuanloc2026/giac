@@ -3640,9 +3640,9 @@ namespace giac {
     for (int a=a0;a<a1;++a){
       const vector<giac_double> & Aa=A[a];
       vector<giac_double> & Ca=C[a+c0];
-      matrix_double::const_iterator it=Btran.begin()+b0,itend=Btran.begin()+b1-5;
+      matrix_double::const_iterator it=Btran.begin()+b0,itend=Btran.begin()+b1;
       vector<giac_double>::iterator jt=Ca.begin()+b0+c1;
-      for (;it<=itend;){
+      for (;itend-it>=5;){
 	giac_double t0=0.0,t1=0.0,t2=0.0,t3=0.0,t4=0.0;
 	const giac_double * i=&Aa[i0+delta], *iend=i+(i1-i0);
 	const giac_double *j0=&(*it)[i0];++it; 
@@ -3651,7 +3651,7 @@ namespace giac {
 	const giac_double *j3=&(*it)[i0];++it;
 	const giac_double *j4=&(*it)[i0];++it;
 #if 1	
-	for (;i<iend-4;j0+=5,j1+=5,j2+=5,j3+=5,j4+=5,i+=5){
+	for (;iend-i>=5;j0+=5,j1+=5,j2+=5,j3+=5,j4+=5,i+=5){
 	  giac_double u = *i;
 	  t0 += u*(*j0);
 	  t1 += u*(*j1);
@@ -3707,7 +3707,6 @@ namespace giac {
 	  *jt-=t4; ++jt;
 	}
       }
-      itend +=5;
       for (;it<itend;++it){
 	giac_double t=0.0;
 	const giac_double * i=&Aa[i0+delta], *iend=i+(i1-i0), *j=&(*it)[i0];
@@ -3732,9 +3731,9 @@ namespace giac {
     for (int a=a0;a<a1;++a){
       const vector<int> & Aa=A[a];
       vector<int> & Ca=C[a+c0];
-      vector< vector<int> >::const_iterator it=Btran.begin()+b0,itend=Btran.begin()+b1-6;
+      vector< vector<int> >::const_iterator it=Btran.begin()+b0,itend=Btran.begin()+b1;
       vector<int>::iterator jt=Ca.begin()+b0+c1;
-      for (;it<=itend;){
+      for (;itend-it>=6;){
 	longlong t0=0,t1=0,t2=0,t3=0,t4=0,t5=0;
 	const int * i=&Aa[i0+delta], *iend=i+(i1-i0);
 	const int *j0=&(*it)[i0];++it; 
@@ -3743,7 +3742,7 @@ namespace giac {
 	const int *j3=&(*it)[i0];++it;
 	const int *j4=&(*it)[i0];++it;
 	const int *j5=&(*it)[i0];++it;
-	for (;i<iend-5;j0+=6,j1+=6,j2+=6,j3+=6,j4+=6,j5+=6,i+=6){
+	for (;iend-i>=6;j0+=6,j1+=6,j2+=6,j3+=6,j4+=6,j5+=6,i+=6){
 	  longlong u = *i;
 	  t0 += u*(*j0);
 	  t1 += u*(*j1);
@@ -3833,7 +3832,6 @@ namespace giac {
 	  }
 	}
       }
-      itend +=6;
       for (;it<itend;++it){
 	longlong t=0;
 	const int * i=&Aa[i0+delta], *iend=i+(i1-i0), *j=&(*it)[i0];
@@ -6206,10 +6204,9 @@ namespace giac {
   void modlinear_combination(vector<int> & v1,int c2,
 			     const vector<int> & v2,int modulo,int cstart,int cend,bool pseudo){
     if (c2){
-      vector<int>::iterator it1=v1.begin()+cstart,it1end=v1.end(),it1_;
+      vector<int>::iterator it1=v1.begin()+cstart,it1end=v1.end();
       if (cend && cend>=cstart && cend<it1end-v1.begin())
 	it1end=v1.begin()+cend;
-      it1_=it1end-4;
       vector<int>::const_iterator it2=v2.begin()+cstart;
 #if defined(PSEUDO_MOD) && !(defined(VISUALC) || defined (BESTA_OS) || defined(OSX) || defined(OSXIOS) || defined(FIR_LINUX) || defined(FIR_ANDROID) || defined(ANDROID))
       c2 %= modulo;
@@ -6225,7 +6222,7 @@ namespace giac {
 #endif // PSEUDO_MOD
 	{
 	  //longlong C2=c2;
-	  for (;it1<it1_;){
+	  for (;it1end-it1>=4;){
 #ifdef _I386_
 	    // *it1=( (*it1) + (longlong) c2*(*it2)) % modulo ; // replace smod
 	    mod(*it1,c2,*it2,modulo);
@@ -7815,11 +7812,9 @@ namespace giac {
   }
 
   void dotvector_int(const vector<int> & v0,const vector<int> & v1,const vector<int> & v2,const vector<int> & v3,const vector<int> & w,longlong &res0,longlong & res1,longlong & res2,longlong & res3){
-    vector<int>::const_iterator it=w.begin(),itend=w.end(),it1,jt0=v0.begin(),jt1=v1.begin(),jt2=v2.begin(),jt3=v3.begin();
-    unsigned n=unsigned(itend-it);
+    vector<int>::const_iterator it=w.begin(),itend=w.end(),jt0=v0.begin(),jt1=v1.begin(),jt2=v2.begin(),jt3=v3.begin();
     res0=res1=res2=res3=0;
-    it1 = itend -4;
-    for (;it<=it1;jt0+=4,jt1+=4,jt2+=4,jt3+=4,it+=4){
+    for (;itend-it>=4;jt0+=4,jt1+=4,jt2+=4,jt3+=4,it+=4){
       longlong tmp0=it[0],tmp1=it[1],tmp2=it[2],tmp3=it[3];
       res0 += tmp0*jt0[0]+tmp1*jt0[1]+tmp2*jt0[2]+tmp3*jt0[3];
       res1 += tmp0*jt1[0]+tmp1*jt1[1]+tmp2*jt1[2]+tmp3*jt1[3];
