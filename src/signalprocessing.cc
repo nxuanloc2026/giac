@@ -5094,7 +5094,10 @@ bool ilaplace2(const gen &g,const gen &s,const gen &x,gen &orig,GIAC_CONTEXT) {
     if (s.type!=_IDNT || x.type!=_IDNT)
         return false;
     vecteur f,a;
-    gen F,h,n=identificateur(" n"),k=identificateur(" k");
+    gen F,h;
+    // sto stores a borrowed identifier-name pointer in the context symbol table.
+    // Keep these internal identifiers alive across repeated inverse transforms.
+    static const gen n=identificateur(" n"),k=identificateur(" k");
     //_purge(makesequence(n,k),contextptr);
     sto(gen(makevecteur(change_subtype(2,1)),_ASSUME__VECT),n,contextptr);
     orig=0;
