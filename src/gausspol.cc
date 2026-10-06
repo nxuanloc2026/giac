@@ -207,7 +207,7 @@ namespace giac {
 		 std::vector< monomial<gen> >::const_iterator & b_end,
 		 std::vector< monomial<gen> > & new_coord,
 		 bool (* is_strictly_greater)( const index_m &, const index_m &)) {
-    if ( (a!=a_end && new_coord.begin()==a) || (b!=b_end && new_coord.begin()==b)){
+    if (aliases_first(new_coord,a,a_end) || aliases_first(new_coord,b,b_end)){
       std::vector< monomial<gen> > tmp;
       Add_gen(a,a_end,b,b_end,tmp,is_strictly_greater);
       std::swap(new_coord,tmp);
@@ -287,7 +287,7 @@ namespace giac {
 		 std::vector< monomial<gen> >::const_iterator & b_end,
 		 std::vector< monomial<gen> > & new_coord,
 		 bool (* is_strictly_greater)( const index_m &, const index_m &)) {
-    if ( (a!=a_end && new_coord.begin()==a) || (b!=b_end && new_coord.begin()==b)){
+    if (aliases_first(new_coord,a,a_end) || aliases_first(new_coord,b,b_end)){
       std::vector< monomial<gen> > tmp;
       Sub_gen(a,a_end,b,b_end,tmp,is_strictly_greater);
       std::swap(new_coord,tmp);

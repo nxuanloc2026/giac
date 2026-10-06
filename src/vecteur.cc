@@ -5016,11 +5016,11 @@ namespace giac {
     if (it1end-it1!=v2.end()-it2)
       setdimerr();
 #endif
-    if (it2==jt1){
+    if (&v2==&v){
       linear_combination(c2,v2,c1,v1,c,1,v,eps,cstart);
       return;
     }
-    if (it1==jt1){
+    if (&v1==&v){
       if (is_one(c)){
 	for (;jt1!=it1end;++jt1,++it2){
 	  *jt1=trim(c1*(*jt1)+c2*(*it2),c1,eps);
